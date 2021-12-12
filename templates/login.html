@@ -1,0 +1,32 @@
+{% extends 'parent.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+<div class="login-box">
+  <h2>Login</h2>
+  <form method="POST">
+      {{ form.hidden_tag() }}
+
+    <div class="user-box">
+       {{ form.email() }}
+
+      <label>Email</label>
+    </div>
+    <div class="user-box">
+      {{ form.pswd() }}
+      <label>Password</label>
+    </div>
+      <a>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    {{ form.submit(class='btn-primary-outline bg-transparent') }} <p><a href="forgot_password">Forgot password</a></p>
+    </a>
+  </form>
+</div>
+
+{% endblock %}

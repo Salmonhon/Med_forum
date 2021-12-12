@@ -1,0 +1,53 @@
+{% extends 'parent.html' %}
+{% block title %}
+Post
+{% endblock %}
+
+{% block body %}
+
+<section class="container p-3 mb-2 bg-secondary text-white">
+    {% for i in news %}
+  <form  method="POST">
+  <div class="col-12">
+    <div class="row">
+      <div class="col">
+        <h2 class="fw-bold float-start"><a href="#">{{ i.title }}</a></h2>
+      </div>
+    </div>
+    <h5>{{ i.intro }}</h5>
+    <div class="row">
+      <div class="col">
+          <p class="fw-light font-monospace text-start">
+          {% if i.text %}
+            {{ i.text }}
+          {% else %}
+            Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design. Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+     {{ form.csrf_token() }}
+    {{ form.author_id(value=i.author.id) }}
+    {% if i.author.id == id %}
+      <button class="btn btn-secondary">Your post</button>
+
+    {% elif i.author.id in followers_id %}
+        <button class="btn btn-secondary">Followed</button>
+    {% else %}
+        {{ form.submit(class='btn btn-secondary') }}
+      {% endif %}
+
+
+
+    <p class="fs-5 fst-italic text-end  author"><a href="#">{{ i.author.id }}</a></p>
+
+  </div>
+  <hr>
+       </form>
+  {% endfor %}
+</section>
+
+
+
+{% endblock body %}

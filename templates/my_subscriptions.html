@@ -1,0 +1,37 @@
+{% extends 'parent.html' %}
+{% block title %}
+Subscriptions
+{% endblock %}
+
+{% block content %}
+
+<section class="container p-3 mb-2 bg-secondary text-white">
+  <form  method="POST">
+  {% for i in news %}
+  <div class="col-12">
+    <div class="row">
+      <div class="col">
+        <h2 class="fw-bold float-start"><a href="#">{{ i.title }}</a></h2>
+      </div>
+    </div>
+    <h5>{{ i.intro }}</h5>
+    <div class="row">
+      <div class="col">
+          <p class="fw-light font-monospace text-start">
+          {% if i.text %}
+            {{ i.text }}
+          {% else %}
+            Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design. Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+    <p class="fs-5 fst-italic text-end"><a href="#">{{ i.author.author }}</a></p>
+
+  </div>
+  <hr>
+  {% endfor %}
+</section>
+
+
+{% endblock content %}
