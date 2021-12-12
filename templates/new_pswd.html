@@ -1,0 +1,33 @@
+{% extends 'parent.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+<div class="login-box">
+
+  <form method="POST">
+      {{ form2.hidden_tag() }}
+
+    <div class="user-box">
+       {{ form2.pswd() }}
+
+      <label>Password</label>
+    </div>
+     <div class="user-box">
+       {{ form2.repswd() }}
+
+      <label>Confirm password</label>
+    </div>
+      <a>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    {{ form2.submit(class='btn-primary-outline bg-transparent') }}
+    </a>
+  </form>
+</div>
+
+{% endblock %}
