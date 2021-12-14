@@ -1,0 +1,40 @@
+.background{
+    height: 750px;
+    background: url(../img/backgroundimg.png) 100% 100% no-repeat;
+    background-size: cover;
+}
+
+.background header img{
+    width: 120px;
+}
+
+.background header .btn{
+    background: #fff;
+    color: cornflowerblue;
+    border: 1px solid #000;
+    font-size: 16px;
+    font-weight: 700;
+}
+.background .info{
+    margin: 60px 150px;
+}
+.background .info .left{
+    margin-top: 90px;
+}
+.background .info .left h1{
+    font-weight: 700;
+}
+
+.background .info .left h3{
+    font-size: 40px;
+    color: cornflowerblue;
+}
+
+.background .info .left p{
+    width: 400px;
+}
+
+.background .info .right img{
+    width: 500px;
+    height: auto;
+}

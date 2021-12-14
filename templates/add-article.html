@@ -1,15 +1,83 @@
-{% extends 'parent.html' %}
+{% extends 'parent1.html' %}
 
 {% block title %}
 Articles
 {% endblock %}
 
 {% block body %}
-<div class="container"><br>
-    <h1 class="h1"> Add Article </h1>
-    <div class="login-box">
-    <form  method="POST">
+        <div class="info">
+                    <h1 class="dobavit">Add your problem</h1>
+                    <form class="form row g-3" method="post">
+                        <div class="col-12">
+
+                            {{ form.title(class="form-control") }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ form.year(class="form-control") }}
+                          </div>
+
+                        <div class="col-md-4">
+                                {{ form.gender(class="form-control") }}
+                        </div>
+                        <div class="col-md-4">
+                          {{ form.img(class="form-control") }}
+                        </div>
+                        <div class="col-12">
+                          <div class="form-check">
+                             {{ form.text(class="form-control") }}
+                          </div>
+                        </div>
+                        <div class="col-12">
+                           {{ form.submit(class='btn btn-secondary') }}
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}
+
+
+
+        <div class="info">
+                    <h1 class="dobavit">Добавить вопрос</h1>
+                    <form class="form row g-3">
+                        <div class="col-12">
+                          {{ form.title(class="form-control") }}
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" placeholder="Year" id="inputEmail42">
+                          </div>
+
+                        <div class="col-md-4">
+                                <input type="text" class="form-control" placeholder="Gender" id="inputEmail43">
+                        </div>
+                        <div class="col-md-4">
+                          <input type="file" class="form-control" id="inputZip">
+                        </div>
+                        <div class="col-12">
+                          <div class="form-check">
+                             {{ form.intro(class="form-control") }}
+                          </div>
+                        </div>
+                        <div class="col-12">
+                           {{ form.submit(class='btn btn-secondary') }}
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+<div class="info">
+    <h1 class="dobavit">Add your problem</h1>
+    <form class="form row g-3" method="POST">
         {{ form.hidden_tag() }}
+        <div class="col-12">
         <label style="color: white;">Title</label>
         {{ form.title(class="form-control") }}<br><label style="color: white;">Describtion</label>
         {{ form.intro(class="form-control") }}<br><label style="color: white;">Text</label>
@@ -22,5 +90,14 @@ Articles
 
 
 </div>
-</div>
-{% endblock %}
+
+
+
+
+
+<!--USTOZDAN SORA CHTO TUT ZA CHUDO -->
+
+                        <div class="col-12">
+
+                            <input placeholder="Title"{{ form.title(class="form-control") }}
+                        </div>

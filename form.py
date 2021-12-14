@@ -2,7 +2,7 @@
 from flask import session
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, EmailField, PasswordField, SubmitField, TextAreaField, HiddenField
+from wtforms import StringField, EmailField, PasswordField, SubmitField, TextAreaField, HiddenField,IntegerField,RadioField,FileField
 from wtforms.validators import DataRequired, Length, Email, ValidationError, Optional, EqualTo
 from db import Author
 
@@ -30,9 +30,11 @@ class Login(FlaskForm):
 
 
 class NewsForm(FlaskForm):
-    title = StringField(validators=[DataRequired()])
-    intro = StringField(validators=[DataRequired()])
-    text = TextAreaField("Text")
+    title = StringField("Title",validators=[DataRequired()])
+    year = IntegerField(validators=[DataRequired()])
+    gender = RadioField('Label', choices=[('value','Male'),('value2','Female')])
+    img = FileField()
+    text = TextAreaField("Text",validators=[DataRequired()])
     submit = SubmitField("ADD")
 
 

@@ -21,8 +21,9 @@ def creat_all():
 
 @app.route("/")
 def index():
-    message = 'please, login to see data info'
-    return render_template("parent.html",message=message)
+    if "id" in session:
+        return render_template("parent1.html")
+    return render_template("newindex.html")
 
 
 @app.route('/logout')
@@ -91,8 +92,7 @@ def login():
         author_login = Author.query.filter_by(email=form.email.data).first()
         if author_login.pswd == form.pswd.data:
             session['id'] = author_login.id
-
-            return render_template('parent.html', message='Login done!')
+            return redirect('/')
     return render_template("login.html", form=form)
 
 
@@ -160,6 +160,19 @@ def subscriptions():
     print(news)
 
     return render_template("my_subscriptions.html", news=news)
+
+
+@app.route("/new", methods=['GET', 'POST'])
+def new():
+    return render_template("newindex.html")
+
+@app.route("/add", methods=['GET', 'POST'])
+def add():
+    return render_template("addPost.html")
+
+@app.route("/parent1", methods=['GET', 'POST'])
+def parent():
+    return render_template("parent1.html")
 
 
 if __name__=="__main__":
