@@ -3,6 +3,7 @@ import secrets
 
 
 import os
+import random
 from configuration import app, db, mail,babel
 from flask import render_template, redirect, session, flash,request
 from form import Signup, Login, NewsForm, SubscribeForm, Forgot, NewPswd, SearchForm
@@ -10,10 +11,10 @@ from db import Author, News
 from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 from flask_bcrypt import Bcrypt
-
+random = str(random.randint(0,999999))
 sec = URLSafeTimedSerializer("Thisissecrettime")
 bcrypt = Bcrypt(app)
-
+a = []
 @app.before_first_request
 def creat_all():
     db.create_all()
@@ -22,11 +23,6 @@ def creat_all():
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-
-
-
 
 
 @app.route("/")
@@ -45,8 +41,8 @@ def logout():
 
 
 def save_file(file_from_form):  # with python's "os" function we will save news-image into 'static/images' folder
-    file_name, file_extension = os.path.splitext(file_from_form)
-    file = file_name + file_extension
+    file_name, file_extension = os.path.splitext(file_from_form.filename)
+    file = random + file_extension
     print(file)
     file_path = os.path.join(app.root_path, 'static/images', file)
     print(file_path)
@@ -120,33 +116,34 @@ def login():
 
 
 @app.route("/regist", methods=['GET', 'POST'])
-def regist(self):
+def regist():
     form = Signup()
     if form.validate_on_submit():
         print(form)
         print(form.data)
         hash_pswd = bcrypt.generate_password_hash(form.pswd.data).decode('utf-8')
-        self.author_signup = Author(sname=form.sname.data, email=form.email.data, pswd=hash_pswd)
+        author_signup = Author(sname=form.sname.data, email=form.email.data, pswd=hash_pswd)
         email = form.email.data
         token = sec.dumps(email, salt="email-confirm")
         msg = Message(subject='Confrim your email', body='http://127.0.0.1:5000/{}'.format(token), recipients=[email])
         mail.send(msg)
         flash("Massege sended")
-        return  redirect("/")
-       #db.session.add(author_signup)  # adding Author-class instance into db
+        db.session.add(author_signup)
+
+
+        return redirect("/")
         # db.session.commit()  # i will save this account after email check
 
     return render_template("regist.html", form=form)
 
 @app.route('/<token>',methods=['GET'])
-def confirm(token,self):
+def confirm(token):
     print(token)
     try:
-        email = sec.loads(token,salt="email-confirm",max_age=1800)
+        email = sec.loads(token, salt="email-confirm",max_age=1800)
+        db.session.commit()
     except SignatureExpired:
         return "Your token link time out"
-    db.session.add(self.author_signup)
-    db.session.commit()
     return render_template('parent.html', message='signup done!')
 
 
@@ -177,6 +174,7 @@ def subscriptions():
 
 @app.route("/myaccount", methods=['GET', 'POST'])
 def my_account():
+    author = Author.query.all()
     form = SubscribeForm()
     if 'id' in session:
         author_login = Author.query.filter_by(id=session.get('id')).first()
@@ -191,7 +189,7 @@ def my_account():
         for i in author_login.subscribes:
             followers_id.append(i.id)
 
-    return render_template("my_account.html", news=news,form=form,id=id,followers_id=followers_id)
+    return render_template("my_account.html", news=news,form=form,id=id,followers_id=followers_id,author=author)
 
 
 
@@ -218,7 +216,11 @@ def answer():
 def settings():
     return render_template("settings.html")
 
+@app.route('/author/<author>', methods=['GET', 'POST'])
+def news2(author):
+    news = []
 
+    return render_template("user.html")
 
 
 
