@@ -32,8 +32,8 @@ class Login(FlaskForm):
 class NewsForm(FlaskForm):
     title = StringField("Title",validators=[DataRequired()])
     year = IntegerField(validators=[DataRequired()])
-    gender = RadioField('Label', choices=[('value','Male'),('value2','Female')])
-    img = FileField()
+    gender = RadioField('Label', choices=[('m','Male'),('f','Female')])
+    img = FileField(validators=[FileAllowed(['jpg', 'png'])])
     text = TextAreaField("Text",validators=[DataRequired()])
     submit = SubmitField("ADD")
 
@@ -49,6 +49,15 @@ class Forgot(FlaskForm):
 
 
 class NewPswd(FlaskForm):
-    pswd = PasswordField('', validators=[DataRequired(), Length(max=8)])
-    repswd = PasswordField('', validators=[DataRequired(), EqualTo('pswd', message='Passwords must match')])
+    pswd = PasswordField(validators=[DataRequired(), Length(max=8)])
+    repswd = PasswordField( validators=[DataRequired(), EqualTo('pswd', message='Passwords must match')])
     submit = SubmitField('SUBMIT')
+
+
+class AnswerForm(FlaskForm):
+    answer = TextAreaField("Text",validators=[DataRequired()])
+    submit = SubmitField('Send')
+
+class SearchForm():
+    search = TextAreaField()
+    submit = HiddenField(SubmitField())

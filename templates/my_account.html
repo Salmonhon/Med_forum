@@ -1,0 +1,105 @@
+{% extends 'parent1.html' %}
+
+{% block title %}
+My Account
+{% endblock %}
+
+{% block body %}
+    {% for i in news %}
+    <div class="container" style=" padding-bottom:50px; max-width: 920px; border-bottom: 1px solid grey; padding-top:20px" >
+        <div class="row">
+        <div class="col-md-3 rounded-circle ">
+            <img style="   border-radius: 50%;
+            width: 150px;
+            height: 150px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvx0W1QwL_U0GmAtIOm1BHPzOvuTogheudLA&usqp=CAU"    alt="">
+       </div>
+        <div class="col-md-9" style="padding-top: 20px; max-width: 100%;">
+            <div class="block" style=" display:flex; color: white" ><h2>{{ i.author.sname }} <a href="settings"><img src="https://img.icons8.com/plumpy/35/000000/settings--v2.png"/></a></h2>
+
+            </div>
+
+        <div style="display:flex">
+            {% if i.author.id == id %}
+            <a href="/logout"><button type="button" class="btn btn-outline-danger">Logout</button></a>
+            {% endif %}
+            <form  method="POST" style="margin-left:14px">
+            {{ form.csrf_token() }}
+            {{ form.author_id(value=i.author.id) }}
+            {% if i.author.id == id %}
+
+            {% elif i.author.id in followers_id %}
+               <button class="btn btn-secondary disabled">Followed</button>
+            {% else %}
+                {{ form.submit(class='btn btn-outline-light ') }}
+            {% endif %}
+            </form>
+            </div>
+
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+
+
+
+<section class="container p-3 mb-2 bg-white text-black", style="border-radius: 10px">
+  {% for i in news %}
+  <div class="col-12">
+    <div class="row">
+      <div class="col">
+        <h2 class="fw-bold float-start"><a href="#">{{ i.title }}</a></h2>
+      </div>
+    </div>
+
+    <h5>{{ i.year }}</h5>
+      <h5>{% if i.gender == "f" %}
+            Female
+        {% else %}
+            Male
+        {% endif %}</h5>
+    <div class="row">
+      <div class="col">
+          <p class="fw-light font-monospace text-start">
+          {% if i.text %}
+            {{ i.text }}
+          {% else %}
+            Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design. Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available. It is also used to temporarily replace text in a process called greeking, which allows designers to consider the form of a webpage or publication, without the meaning of the text influencing the design.
+          {% endif %}
+        </p>
+      </div>
+    </div>
+
+      <a href=""><button type="button" class="btn btn-outline-success">Answer</button></a>
+    <a href="#" class="nav-link px-2"><p class="fs-5 fst-italic text-end ">{{ i.author.sname }}</p></a>
+
+  </div>
+  <hr>
+
+
+
+    <form  method="POST">
+    {{ form.csrf_token() }}
+    {{ form.author_id(value=i.author.id) }}
+    {% if i.author.id != id %}
+      {{ form.submit(class='btn btn-secondary') }}
+    {% endif %}
+    {% if flag == False %}
+       {{ form.submit(class='btn btn-secondary') }}
+    {% endif %}
+    </form>
+  {% endfor %}
+</section>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

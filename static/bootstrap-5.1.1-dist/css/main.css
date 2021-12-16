@@ -1,6 +1,10 @@
 .background {
-  height: 750px;
-  background: url(../img/backgroundblue.png) 100% 100% no-repeat;
+  height: auto;
+  background: url(../img/backgroundblue.png);
+  min-height: 802px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
@@ -12,9 +16,7 @@
   color: #fff;
 }
 
-.background header .nav .nav-link.active {
-  color: aquamarine;
-}
+
 
 .background header .nav .nav-link .fa {
   font-size: 32px;

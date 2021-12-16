@@ -8,12 +8,13 @@ Articles
         <div class="info">
                     <h1 class="dobavit">Add your problem</h1>
                     <form class="form row g-3" method="post">
+                         {{ form.hidden_tag() }}
                         <div class="col-12">
 
-                            {{ form.title(class="form-control") }}
+                            {{ form.title(class="form-control", placeholder="Title") }}
                         </div>
                         <div class="col-md-4">
-                            {{ form.year(class="form-control") }}
+                            {{ form.year(class="form-control",placeholder="Year") }}
                           </div>
 
                         <div class="col-md-4">
@@ -24,7 +25,7 @@ Articles
                         </div>
                         <div class="col-12">
                           <div class="form-check">
-                             {{ form.text(class="form-control") }}
+                             {{ form.text(class="form-control",placeholder="Main Content") }}
                           </div>
                         </div>
                         <div class="col-12">
@@ -40,64 +41,12 @@ Articles
 
 
 
-        <div class="info">
-                    <h1 class="dobavit">Добавить вопрос</h1>
-                    <form class="form row g-3">
-                        <div class="col-12">
-                          {{ form.title(class="form-control") }}
-                        </div>
-                        <div class="col-md-4">
-                            <input type="number" class="form-control" placeholder="Year" id="inputEmail42">
-                          </div>
-
-                        <div class="col-md-4">
-                                <input type="text" class="form-control" placeholder="Gender" id="inputEmail43">
-                        </div>
-                        <div class="col-md-4">
-                          <input type="file" class="form-control" id="inputZip">
-                        </div>
-                        <div class="col-12">
-                          <div class="form-check">
-                             {{ form.intro(class="form-control") }}
-                          </div>
-                        </div>
-                        <div class="col-12">
-                           {{ form.submit(class='btn btn-secondary') }}
-                        </div>
-                      </form>
-                </div>
-            </div>
-        </div>
 
 
 
 
 
-<div class="info">
-    <h1 class="dobavit">Add your problem</h1>
-    <form class="form row g-3" method="POST">
-        {{ form.hidden_tag() }}
-        <div class="col-12">
-        <label style="color: white;">Title</label>
-        {{ form.title(class="form-control") }}<br><label style="color: white;">Describtion</label>
-        {{ form.intro(class="form-control") }}<br><label style="color: white;">Text</label>
-        {{ form.text(class="form-control") }}<br>
-        {{ form.submit(class='btn btn-secondary') }}
-
-
-
-    </form>
-
-
-</div>
 
 
 
 
-
-<!--USTOZDAN SORA CHTO TUT ZA CHUDO -->
-
-                        <div class="col-12">
-
-                            <input placeholder="Title"{{ form.title(class="form-control") }}
-                        </div>

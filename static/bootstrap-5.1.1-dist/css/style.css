@@ -2,6 +2,8 @@
     height: 750px;
     background: url(../img/backgroundimg.png) 100% 100% no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .background header img{
