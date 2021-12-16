@@ -3,8 +3,8 @@ import secrets
 
 
 import os
-from configuration import app, db, mail
-from flask import render_template, redirect, session, flash
+from configuration import app, db, mail,babel
+from flask import render_template, redirect, session, flash,request
 from form import Signup, Login, NewsForm, SubscribeForm, Forgot, NewPswd, SearchForm
 from db import Author, News
 from flask_mail import Message
@@ -19,11 +19,14 @@ def creat_all():
     db.create_all()
 
 
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 
 
-def search():
+
 
 
 @app.route("/")
@@ -31,7 +34,8 @@ def index():
     form = SearchForm()
     if "id" in session:
         return render_template("index.html",form=form)
-    return render_template("newindex.html")
+    else:
+        return render_template("newindex.html")
 
 
 @app.route('/logout')
@@ -116,29 +120,32 @@ def login():
 
 
 @app.route("/regist", methods=['GET', 'POST'])
-def regist():
+def regist(self):
     form = Signup()
     if form.validate_on_submit():
         print(form)
         print(form.data)
         hash_pswd = bcrypt.generate_password_hash(form.pswd.data).decode('utf-8')
-        author_signup = Author(sname=form.sname.data, email=form.email.data, pswd=hash_pswd)
+        self.author_signup = Author(sname=form.sname.data, email=form.email.data, pswd=hash_pswd)
         email = form.email.data
         token = sec.dumps(email, salt="email-confirm")
         msg = Message(subject='Confrim your email', body='http://127.0.0.1:5000/{}'.format(token), recipients=[email])
         mail.send(msg)
-        db.session.add(author_signup)  # adding Author-class instance into db
+        flash("Massege sended")
+        return  redirect("/")
+       #db.session.add(author_signup)  # adding Author-class instance into db
         # db.session.commit()  # i will save this account after email check
-        return render_template('parent.html', message='Check your email!')
+
     return render_template("regist.html", form=form)
 
 @app.route('/<token>',methods=['GET'])
-def confirm(token):
+def confirm(token,self):
     print(token)
     try:
-        email = sec.loads(token,salt="email-confirm",max_age=30)
+        email = sec.loads(token,salt="email-confirm",max_age=1800)
     except SignatureExpired:
         return "Your token link time out"
+    db.session.add(self.author_signup)
     db.session.commit()
     return render_template('parent.html', message='signup done!')
 
