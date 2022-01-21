@@ -53,6 +53,10 @@ class NewPswd(FlaskForm):
     repswd = PasswordField( validators=[DataRequired(), EqualTo('pswd', message='Passwords must match')])
     submit = SubmitField('SUBMIT')
 
+class AnswerButtonForm(FlaskForm):
+    post_id = HiddenField()
+    answer = SubmitField("Answer")
+
 
 class AnswerForm(FlaskForm):
     answer = TextAreaField("Text",validators=[DataRequired()])
@@ -61,3 +65,7 @@ class AnswerForm(FlaskForm):
 class SearchForm():
     search = TextAreaField()
     submit = HiddenField(SubmitField())
+
+class UserForm(FlaskForm):
+    user = HiddenField()
+    submit = SubmitField()

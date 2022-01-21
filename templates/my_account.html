@@ -25,26 +25,11 @@ My Account
 
             {% endif %}
             {% endfor %}
-        <div style="display:flex">
-            {% for i in news %}
-
-            <form  method="POST" style="margin-left:14px">
-            {{ form.csrf_token() }}
-            {{ form.author_id(value=i.author.id) }}
-            {% if i.author.id == id %}
-
-            {% elif i.author.id in followers_id %}
-               <button class="btn btn-secondary disabled">Followed</button>
-            {% else %}
-                {{ form.submit(class='btn btn-outline-light ') }}
-            {% endif %}
-            </form>
-            </div>
 
         </div>
     </div>
     </div>
-    {% endfor %}
+
 
 
 
@@ -76,7 +61,7 @@ My Account
     </div>
 
       <a href=""><button type="button" class="btn btn-outline-success">Answer</button></a>
-    <a href="#" class="nav-link px-2"><p class="fs-5 fst-italic text-end ">{{ i.author.sname }}</p></a>
+    <a href="/author/{{author}}" class="nav-link px-2"><p class="fs-5 fst-italic text-end ">{{ i.author.sname }}</p></a>
 
   </div>
   <hr>

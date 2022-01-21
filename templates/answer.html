@@ -1,0 +1,48 @@
+{% extends 'parent1.html' %}
+{% block title %}
+Answers
+{% endblock %}
+
+{% block body %}
+
+
+<section class="container p-3 mb-2 bg-white text-black", style="border-radius: 10px">
+{% for i in answers %}
+    <div class="col-12">
+
+
+    <div class="row">
+      <div class="col">
+          <p class="fw-light font-monospace text-start">
+            {{ i.answer }}
+        </p>
+      </div>
+    </div>
+        </div>
+    </section><br>
+    <section class="container p-3 mb-2 bg-white text-black", style="border-radius: 10px">
+      <div class="col-12">
+        <h4>Please add your answer</h4>
+        <form method="post">
+            {{ form3.hidden_tag() }}
+            <div class="col-12">
+                   <div class="form-check">
+                             {{ form3.answer(class="form-control",placeholder="Main Content") }}
+                   </div>
+            </div>
+            <div class="col-3">
+                               {{ form3.submit(class='btn btn-secondary') }}
+            </div>
+        </form>
+
+  </div>
+  <hr>
+{% endfor %}
+
+</section>
+
+{% endblock body %}
+
+
+
+

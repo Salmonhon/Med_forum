@@ -7,6 +7,7 @@ Post
 
 
 <section class="container p-3 mb-2 bg-white text-black", style="border-radius: 10px">
+
   {% for i in news %}
   <div class="col-12">
     <div class="row">
@@ -33,12 +34,20 @@ Post
       </div>
     </div>
 
-      <a href="answers"><button type="button" class="btn btn-outline-success">Answer</button></a>
-    <a href="user" class="nav-link px-2"><p class="fs-5 fst-italic text-end ">{{ i.author.sname }}</p></a>
-
+            <form method="POST">
+                {{ form2.csrf_token() }}
+                {{ form2.post_id(value=i.id) }}
+      <a href="answers">{{ form2.answer(class="btn btn-outline-success") }} </a>
+                </form>
+            <form  method="POST">
+            {{ form.csrf_token() }}
+        {{ form.user(value=i.author.id) }}
+    <a href="user" class="nav-link px-2"><p class="fs-5 fst-italic text-end " >{{ i.author.sname }}</p></a>
+        </form>
   </div>
   <hr>
   {% endfor %}
+
 </section>
 
 {% endblock body %}
